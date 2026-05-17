@@ -9,7 +9,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatListModule} from '@angular/material/list';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatToolbarModule} from '@angular/material/toolbar';
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import {provideHttpClient, withInterceptorsFromDi} from '@angular/common/http';
 
 import {RouterModule, Routes} from '@angular/router';
 import {AuthModule} from './auth/auth.module';
@@ -20,7 +20,8 @@ import {RouterState, StoreRouterConnectingModule} from '@ngrx/router-store';
 
 import {EffectsModule} from '@ngrx/effects';
 import {EntityDataModule} from '@ngrx/data';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {metaReducers, reducers} from "./reducers";
 
 
 const routes: Routes = [
@@ -35,19 +36,24 @@ const routes: Routes = [
 ];
 
 
-
-@NgModule({ declarations: [
-        AppComponent
-    ],
-    bootstrap: [AppComponent], imports: [BrowserModule,
-        BrowserAnimationsModule,
-        RouterModule.forRoot(routes),
-        MatMenuModule,
-        MatIconModule,
-        MatSidenavModule,
-        MatProgressSpinnerModule,
-        MatListModule,
-        MatToolbarModule,
-        AuthModule.forRoot()], providers: [provideHttpClient(withInterceptorsFromDi())] })
+@NgModule({
+  declarations: [
+    AppComponent
+  ],
+  bootstrap: [AppComponent], imports: [BrowserModule,
+    BrowserAnimationsModule,
+    RouterModule.forRoot(routes),
+    MatMenuModule,
+    MatIconModule,
+    MatSidenavModule,
+    MatProgressSpinnerModule,
+    MatListModule,
+    MatToolbarModule,
+    AuthModule.forRoot(),
+    StoreModule.forRoot(reducers, {metaReducers}),
+    StoreDevtoolsModule.instrument({maxAge: 25, logOnly: environment.production})
+  ],
+  providers: [provideHttpClient(withInterceptorsFromDi())]
+})
 export class AppModule {
 }
