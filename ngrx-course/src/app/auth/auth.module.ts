@@ -8,33 +8,28 @@ import {ReactiveFormsModule} from "@angular/forms";
 import {MatButtonModule} from "@angular/material/button";
 import {StoreModule} from '@ngrx/store';
 import {AuthService} from "./auth.service";
-import * as fromAuth from './reducers';
-import {authFeatureKey} from './reducers';
+import {authReducer} from './reducers';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        ReactiveFormsModule,
-        MatCardModule,
-        MatInputModule,
-        MatButtonModule,
-        RouterModule.forChild([{path: '', component: LoginComponent}]),
-        StoreModule.forFeature(
-          authFeatureKey,
-          fromAuth.reducers, { metaReducers: fromAuth.metaReducers }
-        ),
-
-    ],
-    declarations: [LoginComponent],
-    exports: [LoginComponent]
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    MatCardModule,
+    MatInputModule,
+    MatButtonModule,
+    RouterModule.forChild([{path: '', component: LoginComponent}]),
+    StoreModule.forFeature('auth', authReducer)
+  ],
+  declarations: [LoginComponent],
+  exports: [LoginComponent]
 })
 export class AuthModule {
-    static forRoot(): ModuleWithProviders<AuthModule> {
-        return {
-            ngModule: AuthModule,
-            providers: [
-              AuthService
-            ]
-        }
+  static forRoot(): ModuleWithProviders<AuthModule> {
+    return {
+      ngModule: AuthModule,
+      providers: [
+        AuthService
+      ]
     }
+  }
 }
