@@ -4,12 +4,13 @@ import {CourseActions} from "./action-types";
 import {CoursesHttpService} from "./services/courses-http.service";
 import {concatMap, map} from "rxjs/operators";
 import {allCoursesLoaded} from "./course.actions";
+import {pipe} from "rxjs";
 
 @Injectable()
 export class CoursesEffects {
 
   loadCoures$ = createEffect(
-    () => this.action$
+    () => this.actions$
       .pipe(
         ofType(CourseActions.loadAllCourses),
         concatMap(action => this.coursesHttpService.findAllCourses()),
@@ -17,7 +18,19 @@ export class CoursesEffects {
       )
   )
 
-  constructor(private action$: Actions, private coursesHttpService: CoursesHttpService) {
+  saveCourse$ = createEffect(
+    () => this.actions$
+      .pipe(
+        ofType(CourseActions.courseUpdated),
+        concatMap(action => this.coursesHttpService.saveCourse(
+          action.update.id,
+          action.update.changes
+        ))
+      ),
+    {dispatch: false}
+  )
+
+  constructor(private actions$: Actions, private coursesHttpService: CoursesHttpService) {
   }
 
 }
