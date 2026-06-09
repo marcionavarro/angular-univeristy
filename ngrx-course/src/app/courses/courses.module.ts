@@ -22,7 +22,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import {RouterModule, Routes} from '@angular/router';
 import {EntityDataService, EntityDefinitionService, EntityMetadataMap} from '@ngrx/data';
-import {Course} from './model/course';
+import {compareCourses, Course} from './model/course';
 import {CoursesResolver} from "./services/courses.resolver";
 import {EffectsModule} from "@ngrx/effects";
 import {CoursesEffects} from "./courses.effects";
@@ -51,7 +51,12 @@ export const coursesRoutes: Routes = [
 ];
 
 const entityMetadata: EntityMetadataMap = {
-  Course: {}
+  Course: {
+    sortComparer: compareCourses,
+    entityDispatcherOptions: {
+      optimisticUpdate: true
+    }
+  }
 }
 
 
