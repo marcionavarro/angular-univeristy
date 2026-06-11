@@ -26,6 +26,6 @@
       <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
     </mat-table>
     <button class="bottom-toolbar" mat-raised-button color="accent"
-    (click)="loadLessonsPage(course)">Load More</button>
+    (click)="loadLessonsPage(course)" [disabled]="!hasMore">Load More</button>
   </div>
 }
