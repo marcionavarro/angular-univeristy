@@ -25,9 +25,7 @@ import {EntityDataService, EntityDefinitionService, EntityMetadataMap} from '@ng
 import {compareCourses, Course} from './model/course';
 import {CoursesResolver} from "./services/courses.resolver";
 import {EffectsModule} from "@ngrx/effects";
-import {CoursesEffects} from "./courses.effects";
 import {StoreModule} from "@ngrx/store";
-import {coursesReducer} from "./reducers/course.reducer";
 import {CourseEntityService} from "./services/course-entity.service";
 import {CoursesDataService} from "./services/courses-data.service";
 import {compareLessons} from "./model/lesson";
@@ -84,8 +82,6 @@ const entityMetadata: EntityMetadataMap = {
     MatMomentDateModule,
     ReactiveFormsModule,
     RouterModule.forChild(coursesRoutes),
-    EffectsModule.forFeature([CoursesEffects]),
-    StoreModule.forFeature("courses", coursesReducer)
   ],
   declarations: [
     HomeComponent,
